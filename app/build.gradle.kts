@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id ("kotlin-kapt")
-    id ("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -15,6 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -44,15 +45,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -61,6 +56,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.palette.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,35 +66,38 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.navigation.compose.v100alpha09)
+    implementation(libs.androidx.constraintlayout.compose)
 
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.kotlinx.coroutines.android)
-
-    //Dagger/hilt
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.android.compiler)
-    implementation (libs.androidx.hilt.lifecycle.viewmodel)
-    kapt (libs.androidx.hilt.compiler)
-    implementation (libs.androidx.hilt.navigation.compose)
+    // Dagger/Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Coroutines
-    implementation (libs.kotlinx.coroutines.core.v143)
-    implementation (libs.kotlinx.coroutines.android.v143)
+    implementation(libs.kotlinx.coroutines.core.v143)
+    implementation(libs.kotlinx.coroutines.android.v143)
 
     // Coroutine Lifecycle Scopes
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.runtime.ktx.v231)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v231)
 
     // Coil
-    implementation (libs.coil)
-    implementation (libs.accompanist.coil)
+    implementation(libs.coil.compose)
 
     // Timber
-    implementation (libs.timber)
+    implementation(libs.timber)
 
     // Retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.okhttp)
-    implementation (libs.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+}
+
+kapt {
+    correctErrorTypes = true
 }
